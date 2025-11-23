@@ -1,3 +1,101 @@
+* {
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f0; 
+}
+
+/* 中央の白いカード */
+.game-card {
+  background: #ffffff;
+  padding: 40px 56px 48px;
+  border-radius: 32px;
+  text-align: center;
+  max-width: 420px;
+}
+
+/* タイトル */
+.title {
+  font-size: 32px;
+  margin: 0 0 16px;
+  color: #23313a;
+}
+
+/* 説明文 */
+.info {
+  font-size: 14px;
+  color: #23313a;
+  margin-bottom: 16px;
+}
+
+/* ステータス */
+.status {
+  font-size: 18px;
+  color: #23313a;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+
+/* 9マスグリッド */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 80px);  
+  grid-auto-rows: 80px;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* 各マス */
+.list li {
+  background: #7fc6c9;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.list li:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.18);
+}
+
+/* スタートボタン */
+#start {
+  border: none;
+  background: #244046;
+  color: #ffffff;
+  padding: 10px 40px;
+  border-radius: 999px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+#start:hover {
+  opacity: 0.9;
+}
+
+#start:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* シェイクアニメーション（そのまま使用） */
 @keyframes shake-horizontal {
   0%   { transform: translateX(0); }
   20%  { transform: translateX(-10px); }
