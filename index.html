@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1 class="title" id="title">間違い探し</h1>
+
+    <div class="info">
+        同じ顔が並ぶ中に、1つだけ違う顔があるよ。<br>
+        10秒以内にできるだけたくさん当ててね！
+    </div>
+
+    <div class="status">
+        クリア<span id="clear">0</span>回
+        時間<span id="sec">10</span>秒
+    </div>
+
+    <ul class="list">
+        <li class="cell1">☺️</li>
+        <li class="cell2">☺️</li>
+        <li class="cell3">☺️</li>
+        <li class="cell4">☺️</li>
+        <li class="cell5">☺️</li>
+        <li class="cell6">☺️</li>
+        <li class="cell7">☺️</li>
+        <li class="cell8">☺️</li>
+        <li class="cell9">☺️</li>
+    </ul>
+
+    <button id="start">start</button>
+
+    <script>
+    $(function () {
+        let clear = 0;             
+        let timeLeft = 10;   
+        let timerId = null;
+        let playing = false;      
+        const $clear = $("#clear");
+        const $sec   = $("#sec");
+        const $list  = $(".list");
+        const $start = $("#start");
+
+        let r = 0; 
+
+        // 画面を揺らす
+        function shakeScreen() {
+            $("body").addClass("shake");
+            setTimeout(function () {
+                $("body").removeClass("shake");
+            }, 300);
+        }
+
+        // ランダムに1つだけ 😉 を出すを定義する
+        function setRandomFace() {
+            $list.find("li").text("☺️");
+            r = Math.floor(Math.random() * 9) + 1;
+            $(".cell" + r).text("😉");
+        }
+
+        setRandomFace();
+        $list.on("click", "li", function () {
+            if (!playing) return; // タイム終了後は無効
+            const index = $(this).index() + 1;
+            if (index === r) {
+                clear++;
+                $clear.text(clear);
+                setRandomFace();
+
+            } else {
+                shakeScreen();
+            }
+        });
+
+        $start.on("click", function () {
+        clear = 0;
+        timeLeft = 10;
+        $clear.text(clear);
+        $sec.text(timeLeft);
+        playing = true;
+
+            setRandomFace();
+
+        timerId = setInterval(function () {
+        timeLeft--;
+        $sec.text(timeLeft);
+
+        if (timeLeft <= 0) {
+                endGame();}
+        }, 1000);
+
+        });
+
+        
+             // ゲーム終了
+        function endGame() {
+            playing = false;
+            if (timerId !== null) {
+                clearInterval(timerId);
+                timerId = null;
+            }
+            alert(`おめでとう！${clear}回達成！`);
+        }
+
+    });
+    </script>
+</body>
+</html>
